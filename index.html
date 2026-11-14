@@ -268,10 +268,12 @@ box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
 .reader-body .recap div:last-child{border-bottom:none}
 .reader-body .recap b{font-size:12px;font-weight:500;color:var(--acc);padding-top:3px;flex:0 0 auto}
 .reader-body .src{margin-top:20px;font-size:12px;line-height:1.75;color:var(--tx3)}
-.reader-body .r-end{margin-top:28px;display:flex;flex-direction:column;gap:10px}
-.rbtn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:14px;padding:13px 10px;font-size:14.5px;min-height:50px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--tx);transition:transform .35s var(--spring)}
-.rbtn:active{transform:scale(.97)}
-.rbtn.acc{background:color-mix(in srgb,var(--acc) 72%,#171310);border-color:color-mix(in srgb,var(--acc) 40%,transparent);color:#fff;font-weight:500}
+.reader-body .r-end{margin-top:38px;padding-top:20px;border-top:1px solid rgba(255,255,255,.07);display:flex;flex-direction:row;align-items:center;gap:10px}
+.rbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:0 18px;font-size:14px;letter-spacing:.02em;min-height:44px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.045);-webkit-backdrop-filter:blur(20px) saturate(1.25);backdrop-filter:blur(20px) saturate(1.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);color:rgba(243,240,233,.6);transition:transform .35s var(--spring),background .25s,color .25s}
+.rbtn:active{transform:scale(.96)}
+.rbtn svg{flex:0 0 auto;opacity:.85}
+.rbtn.acc{flex:1;background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.15);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 8px 24px rgba(0,0,0,.22);color:#fff;font-weight:500}
+.rbtn.acc:active{background:rgba(255,255,255,.19)}
 
 
 /* ===== overall logic + mind map (node-link SVG) ===== */
@@ -366,16 +368,44 @@ box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
 .toast.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .toast svg{flex:0 0 auto;color:var(--acc)}
 
+/* ===== Daily Feed: a 3D drum of dated entries =====
+   Deliberately NOT the flip deck: entries live on a vertical
+   cylinder — scrolling rolls them through space (rotateX by
+   distance from centre), tapping one opens the same immersive
+   reading the cards use. */
+.feed-zone{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:6px 20px 30px;scrollbar-width:none}
+.feed-zone::-webkit-scrollbar{display:none}
+.feed-head{padding:16px 2px 0}
+.feed-head .a-k{font-size:11px;letter-spacing:.22em;color:var(--acc)}
+.feed-head h2{font-size:33px;font-weight:500;margin:10px 0 0;line-height:1.2;letter-spacing:.02em}
+.feed-sub{margin:9px 0 0;font-size:13.5px;line-height:1.8;color:var(--tx2)}
+.feed-list{display:flex;flex-direction:column;gap:15px;margin-top:4px}
+.feed-date-g{margin:22px 2px 0;font-size:11px;letter-spacing:.2em;color:var(--tx3);display:flex;align-items:center;gap:12px}
+.feed-date-g::after{content:"";flex:1;height:1px;background:rgba(243,240,233,.1)}
+.feed-date-g:first-child{margin-top:14px}
+.feed-tile{position:relative;display:flex;flex-direction:column;text-align:left;width:100%;border-radius:24px;padding:19px 20px 15px;color:#fff;border:1px solid rgba(255,255,255,.13);background:linear-gradient(160deg,color-mix(in srgb,var(--fc) 27%,#171310),color-mix(in srgb,var(--fc2) 22%,#0c0a09) 82%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 16px 32px rgba(0,0,0,.34);will-change:transform,opacity;animation:fadeUp .6s var(--spring) both}
+.feed-tile.read{filter:saturate(.5) brightness(.92)}
+.ft-top{display:flex;align-items:center;gap:9px}
+.ft-cat{font-size:10.5px;letter-spacing:.14em;padding:4px 9px;border-radius:99px;background:color-mix(in srgb,var(--fc) 38%,rgba(10,8,7,.4));border:1px solid color-mix(in srgb,var(--fc) 50%,rgba(255,255,255,.16));color:#fff}
+.ft-date{font-size:11.5px;letter-spacing:.1em;color:rgba(255,255,255,.55)}
+.ft-new{margin-left:auto;font-size:10px;letter-spacing:.16em;font-weight:500;color:#0d0b0a;background:color-mix(in srgb,var(--fc) 72%,#fff);border-radius:99px;padding:4px 8px}
+.ft-title{display:block;font-size:19.5px;font-weight:500;line-height:1.45;letter-spacing:.02em;margin-top:12px}
+.ft-take{display:block;font-size:13.5px;line-height:1.75;color:rgba(255,255,255,.82);margin-top:7px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
+.ft-foot{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:11px;border-top:1px solid rgba(255,255,255,.14)}
+.ft-src{flex:1;min-width:0;font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ft-go{flex:0 0 auto;display:flex;align-items:center;gap:5px;font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.85)}
+
 @media(prefers-reduced-motion:reduce){
 .ambient i{animation:none}
 .day-block{animation:none}
+.feed-tile{animation:none}
 .reader-ov,.deep-sheet,.toast,.progress i{transition-duration:.01s}
 }
 </style>
 </head>
 <body>
 <div class="stage">
-<div class="side-hint" aria-hidden="true"><b>How to use</b><span>Tap the card itself — it flips in 3D</span><span>Drag it in any direction, to any angle — past halfway it flips, short of halfway it springs back</span><span>Expand icon — full-screen reading</span><span>In the reading, tap a concept or select any text — Deep Dive</span><span>Progress — what is learned, what is next, learn ahead</span></div>
+<div class="side-hint" aria-hidden="true"><b>How to use</b><span>Tap the card itself — it flips in 3D</span><span>Drag it in any direction, to any angle — past halfway it flips, short of halfway it springs back</span><span>Expand icon — full-screen reading</span><span>In the reading, tap a concept or select any text — Deep Dive</span><span>Daily — the day's new knowledge on a 3D drum, tap to read</span><span>Progress — what is learned, what is next, learn ahead</span></div>
 
 <div class="phone" id="phone">
 <div class="ambient" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i><i class="a4"></i></div>
@@ -386,6 +416,19 @@ box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
 </div>
 <div class="progress"><i id="progBar" style="width:5%"></i></div>
 </header>
+
+<!-- Daily Feed view -->
+<section class="view" id="viewFeed" aria-label="Daily Feed">
+<div class="feed-zone" id="feedZone">
+<div class="feed-head">
+<div class="a-k">DAILY FEED</div>
+<h2>每日知识</h2>
+<p class="feed-sub" id="feedSub"></p>
+</div>
+<div class="feed-list" id="feedList"></div>
+<div class="arch-foot">每天补充新条目 · 滚动时条目在 3D 滚筒上转过，点任意一条展开沉浸阅读，文中概念可点开 Deep Dive</div>
+</div>
+</section>
 
 <!-- Card view -->
 <section class="view active" id="viewLearn" aria-label="Cards">
@@ -424,6 +467,7 @@ box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
 
 <!-- Tab bar -->
 <nav class="tabbar" aria-label="Main">
+<button class="tab" id="tabFeed"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v13a2 2 0 0 1-2 2H5a1 1 0 0 1-1-1z"/><path d="M17 8h2a1 1 0 0 1 1 1v9a2 2 0 0 1-2 2"/><path d="M7.5 8h6"/><path d="M7.5 11.5h6"/><path d="M7.5 15h4"/></svg>Daily</button>
 <button class="tab active" id="tabLearn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18"/></svg>Card</button>
 <button class="tab" id="tabArch"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-8"/><path d="M22 20H2"/></svg>Progress</button>
 </nav>
@@ -436,6 +480,16 @@ box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
 <span class="rh-t" id="readerTerm"></span>
 </div>
 <div class="reader-body" id="readerBody"></div>
+</div>
+
+<!-- Immersive reader for Daily Feed entries -->
+<div class="reader-ov" id="feedReaderOv" aria-hidden="true">
+<div class="reader-head">
+<button class="glass-ico" id="feedReaderBack" aria-label="Back to feed"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+<span class="rh-k">DAILY FEED</span>
+<span class="rh-t" id="feedReaderTerm"></span>
+</div>
+<div class="reader-body" id="feedReaderBody"></div>
 </div>
 
 <!-- Floating Deep Dive action for a text selection inside the reading -->
@@ -1086,10 +1140,10 @@ $('readerBody').innerHTML=
 +(IV[d.cardIdx()][0]?'<div class="ivbox"><div class="ex-k">自测一问 · SELF CHECK</div><p>'+IV[d.cardIdx()][0]+'</p></div>':'')
 +'<p class="src">来源：'+c.src+'</p>'
 +'<div class="r-end">'
++'<button class="rbtn" id="rBackBtn">Back</button>'
 +(last
-?'<button class="rbtn acc" id="rNextBtn">Finish this deck</button>'
-:'<button class="rbtn acc" id="rNextBtn">Next · '+CARDS[d.list[d.pos+1]].term+'</button>')
-+'<button class="rbtn" id="rBackBtn">Back to card</button>'
+?'<button class="rbtn acc" id="rNextBtn">Done<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></button>'
+:'<button class="rbtn acc" id="rNextBtn">Next<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button>')
 +'</div>';
 $('readerBody').scrollTop=0;
 $('selDive').classList.remove('on');
@@ -1163,11 +1217,11 @@ document.addEventListener('selectionchange',function(){
 clearTimeout(selTimer);
 selTimer=setTimeout(function(){
 var b=$('selDive');
-if(!$('readerOv').classList.contains('on')){b.classList.remove('on');return}
+if(!$('readerOv').classList.contains('on')&&!$('feedReaderOv').classList.contains('on')){b.classList.remove('on');return}
 var sel=window.getSelection?window.getSelection():null;
 var txt=sel?sel.toString().trim().replace(/\s+/g,' '):'';
 var inReader=false;
-if(sel&&sel.rangeCount&&txt){var n=sel.anchorNode;while(n){if(n.id==='readerBody'){inReader=true;break}n=n.parentNode}}
+if(sel&&sel.rangeCount&&txt){var n=sel.anchorNode;while(n){if(n.id==='readerBody'||n.id==='feedReaderBody'){inReader=true;break}n=n.parentNode}}
 if(inReader&&txt.length>=2&&txt.length<=60){
 $('selDiveTxt').textContent='「'+(txt.length>16?txt.slice(0,16)+'…':txt)+'」';
 b.setAttribute('data-text',txt);b.classList.add('on');
@@ -1273,17 +1327,262 @@ renderDeck(mainDeck,0);
 showView('learn');
 }
 
+/* ================= Daily Feed =================
+   A third surface next to the card deck: each day's new knowledge,
+   written to the same standard as the cards — the concept explained
+   in full, in short paragraphs, with structure maps inside the text
+   and a sourced takeaway — but browsed differently: entries sit on
+   a 3D drum that rolls as you scroll, instead of flipping. Tapping
+   an entry opens the same immersive reading (concepts, selection
+   Deep Dive) the cards use. Content: verified seed entries from the
+   daily intel scans and lessons; new days append in the same shape
+   (date + title + thesis + full text + source). */
+var FEED=[
+{g:"今天 · 11.14",date:"2026-11-14",cat:"早课 · 第 1 课",isNew:true,c1:"#b02a37",c2:"#571320",
+title:"Eval 与失败分类入门",
+take:"eval 是给 agent 判卷子的打分表：先定“做到哪步算完”，再让它动手；判最终状态，不判话术。",
+srcShort:"Anthropic · Berkeley × Together AI",
+src:"Anthropic《Demystifying evals for AI agents》（2026-01-09）；Berkeley × Together AI《Beyond the Leaderboard》（2026-07，分析 4,300 条轨迹）；LLM 评委翻供数据为 2026-11-05 更新的实测",
+art:[
+"先说清 eval 是什么。它不是跑几个测试用例看看对不对，而是一张给 agent 判卷子的打分表：先把“做到哪步算完”写下来，再让 agent 动手，最后照着这张表判。顺序不能反——先动手再定标准，标准就会不自觉地迁就已经做出来的结果，判卷也就失去了意义。",
+"判的时候只判最终状态，不判话术。agent 在过程中说得再漂亮，改完的界面不符合品牌规范，就是不及格；反过来，过程磕磕绊绊，但最终产物逐条对得上规范，就是通过。eval 盯的是产物，不是表演。",
+{f:{t:"hub",c:"三种判卷方式",n:[["确定性检查",["代码判 · 最稳","只覆盖写死的规则"]],["LLM-as-judge",["能判模糊项","边界题 20.6% 翻供"]],["人工抽查",["最准 · 也最贵","留给兜底与校准"]]]},cap:"组合用法：确定性检查打底，LLM 评委只判模糊项，人工抽查兜底。"},
+"三种判卷方式各有各的坑。确定性检查最稳，写个脚本比对输出，对就是对、错就是错，但它只能覆盖能写死规则的部分，“好不好看”这类判断它判不了。LLM 当评委灵活，模糊项也能判，但它不稳定：一组实测里，Haiku 4.5 在温度 0 下，对边界题重问一次，有 20.6% 会翻供——同一个答案问两次，结论不一样。人工抽查最准，但也最贵，不可能每条都看。所以实际做法是组合：确定性检查打底，LLM 评委只判模糊项，人工抽查兜底。",
+"能力型 eval 和回归型 eval 要分开跑。能力型测的是新本事，比如新加了一个能力，它到底能不能做；回归型测的是旧本事有没有被改坏，每次改动之后把老任务重跑一遍。两者混在一起跑，分数一掉，你分不清是新功能不行，还是旧功能被新改动搞挂了，归因就断了。",
+{f:{t:"hub",c:"六类失败 · 合计 89%",n:[["工具用错 24.1%",["选错工具 · 传错参数"]],["规划跑偏 19.8%",["拆解与顺序错了"]],["凭空编上下文 17.6%",["用了不存在的信息"]],["环境太脆 13.4%",["工具与环境不稳定"]],["静默成功 8.9%",["报了成功 · 没做对"]],["安全拒绝",["触发安全边界被拦截"]]]},cap:"来自 4,300 条 agent 轨迹的标注统计：先贴标签，再动手修。"},
+"失败先分类，再修。Berkeley 与 Together AI 的那篇论文分析了 4,300 条 agent 执行轨迹，把失败归成六类，六类合计占 89%：工具用错 24.1%、规划跑偏 19.8%、凭空编上下文 17.6%、环境太脆 13.4%、静默成功 8.9%，外加安全拒绝。分类的意义在于，不同类的修法完全不同：工具用错要改工具描述或参数校验，规划跑偏要改任务拆解，凭空编上下文要改信息供给。不分类就动手，等于对着一个总分瞎调，调了也不知道是哪儿变好的。"
+],
+why:"从你的设计判断沉淀 skill 里挑 5 个真实任务，每个写一句话验收标准，跑一遍，失败的按上面六类贴标签。这周攒到 20 个，第一个 eval 包就有了——面试和作品集里，能拿出验收标准与失败数据，比只说“我做了个 agent”硬得多。"},
+{g:"11.13",date:"2026-11-13",cat:"晚课",c1:"#d9531e",c2:"#8f2f0e",
+title:"Harness 比模型更决定 Agent 成绩",
+take:"同一个模型换一套 harness，成绩能差 17 个点；17 个 agent 组成的小队，输给了单个 agent。",
+srcShort:"LLM Digest · ExpertCrowd-SWE",
+src:"LLM Digest 2026-11-06 周报；ExpertCrowd-SWE（2026-11-09 提交、11-12 报道）",
+art:[
+"先把 harness 这个词说清。它是模型之外的那一整套东西：循环怎么转、工具有哪些、每一步给什么上下文、什么动作要停下来问人、失败了怎么留痕。模型只负责在每一步做判断，而判断发生的舞台，是 harness 搭的。",
+"一组对照很能说明问题：同一个模型，只换一套 harness，成绩能差 17 个点（Haiku 5.5）。模型一个字没变，变的只是它干活的方式——先看什么、能用什么工具、错了怎么重试、做到哪步算完——分数就拉开了 17 个点。也就是说，“这个 agent 行不行”这个问题，大半不在模型身上，在 harness 身上。",
+{f:{t:"cols",c:[{h:"只换模型",l:["harness 还是旧的那套","干活的方式没变"]},{h:"只换 harness",l:["模型还是同一个","成绩差出 17 个点"]}]},cap:"对照来自 LLM Digest 2026-11-06 周报的梳理：先修舞台，再换演员。"},
+"另一个数字方向相反：17 个 agent 组成的小队，输给了单个 agent。多 agent 不是天然更强——每新增一个 agent，都要和其它 agent 对齐状态、去重、解决冲突、定位失败，这些协调成本涨得比产出快，队伍就会越组越弱。这和课程里“多 agent 的协调成本”是同一件事的两面：拆不拆，先算协调这笔账。"
+],
+why:"面试里被问“agent 表现差，你先做什么”，答案不是先换模型：先查 harness——任务拆解树画出来了吗？每步的 Done 标准写了吗？失败时 trace 能不能回放定位到第几步？三句都答不上来，先修 harness，不要先换模型。"},
+{g:"11.13",date:"2026-11-13",cat:"新进展",c1:"#c2436b",c2:"#5e1c33",
+title:"Anthropic 更新强安全评估方法",
+take:"Anthropic 更新《Building strong safety evaluations》：eval 不只判做没做对，还要判会不会做不该做的事。",
+srcShort:"Anthropic",
+src:"Anthropic《Building strong safety evaluations》（2026-11-13 更新）；方法细节待后续情报补充",
+art:[
+"2026 年 11 月 13 日，Anthropic 更新了《Building strong safety evaluations》，讲的是强安全评估的构建方法。它和这两天的 eval 课是同一条线上的另一支：eval 不只判“做没做对”，还要判“会不会做不该做的事”。",
+"为什么安全要单独一套评估。能力评估的题目是“能不能做成”，安全评估的题目是“在什么情况下必须停手”——被诱导去执行危险动作时拒不拒绝，碰到不该碰的数据时守不守边界。这类题目答错的代价不是分数低，而是事故，所以它的构建方法自成一套，Anthropic 这次更新的就是这套方法。",
+{f:{t:"flow",n:[["能力评估",["判做没做对"]],["安全评估",["判会不会做错事"]],["两套并行",["缺一套不算判完"]]]},cap:"本条为更新动态，方法细节待后续补充进来再展开。"},
+"目前这条只有更新动态本身，具体方法细节还没有展开记录，先把位置占住：它属于 eval 主题下与能力评估并列的一支。等细节补进来，会按“它新给了什么判法、和现有的能力评估怎么拼”再展开。"
+],
+why:"做设计 agent 这类会碰用户文件、能对外交付的产品，安全评估不是加分项：验收清单里应该单独有一栏，列“它必须拒绝的动作”，和“它必须做成的任务”并排放在一起。"},
+{g:"11.12",date:"2026-11-12",cat:"资本动向",c1:"#b8860f",c2:"#66490a",
+title:"Anthropic IPO 定价上移，先看懂估值口径",
+take:"路演首日认购踊跃，预计定价约 83 美元/股；但 1.02 万亿和 1.41 万亿两个估值，差的是口径，不是公司。",
+srcShort:"2026-11-12 媒体报道",
+src:"2026-11-12 媒体报道（非公司文件）；Anthropic 与高盛均拒绝评论",
+art:[
+"先把时间线摆清。2026 年 11 月 12 日的报道说，Anthropic 上市路演第一天认购踊跃，承销商预计最终定价会高于原定的每股 70–78 美元区间，大约落在 83 美元一股。按这个价格算，完全稀释口径的估值在 1.5 万亿美元以上。定价日报在 11 月 18 日，次日开始交易，赶在感恩节前上市。",
+"这条里最容易看晕的是估值口径。同一个价格，估值能算出两个数：只算已经发行的流通股，区间顶格约 1.02 万亿美元；按完全稀释算，约 1.41 万亿美元，定价上移后更高。差出来的部分，是期权、可转债这类“将来会变成股票”的东西——完全稀释，就是假设它们全部变成股票之后再算总市值，所以数字更大。看任何估值数字，先问一句是哪个口径，不然就是拿两个不同的东西在比。",
+{f:{t:"cols",c:[{h:"流通股口径",l:["只算已发行的股票","区间顶格约 1.02 万亿美元"]},{h:"完全稀释口径",l:["期权、可转债全算进来","区间顶格约 1.41 万亿美元"]}]},cap:"同一家公司、同一个价格，口径不同，估值差出近四成。"},
+"还有两个背景数字。一个是回落：一个月前市场上谈的还是 2 万亿美元，如今落到 1.5 万亿上下，热度在退。另一个是可信度：这批数字来自媒体报道，不是公司文件，Anthropic 和承销商高盛都拒绝评论——所以它只能当市场情绪看，不能当定论，最终价要等 11 月 18 日定价出来。"
+],
+why:"这条和谈 offer 直接相关：如果股票包按估值折算，先问清对方用的是哪个口径——流通股还是完全稀释，两个口径差近四成；等 11 月 18 日最终价出来再定，谈判时把现金权重往上提。"},
+{g:"11.06",date:"2026-11-06",cat:"需求现实",c1:"#5e7a8a",c2:"#2f424c",
+title:"Agent 购物：基建先行，真实需求几乎为零",
+take:"两家公司各融 1500 万美元铺管道，而 Uber 3.2 亿单里，agent 下的单只有约 504 单。",
+srcShort:"每日情报扫描",
+src:"每日情报扫描（2026-11-06 晚间）；Firmly 与 Snaplii 融资为 2026-11-05",
+art:[
+"先看资本这边。2026 年 11 月 5 日，Firmly 和 Snaplii 各融了 1500 万美元，都是给 agent 购物做基础设施的——让商品信息能被 agent 读懂、能被 agent 下单。这类活有个统称，叫 plumbing，管道活：不直接面对用户，但所有人都得从它上面过。",
+"再看需求这边，数字冷得刺眼。Uber 在万圣节那一周大约有 3.2 亿单，其中由 AI agent 下单的，外卖约 500 单、打车 4 单。504 单除以 3.2 亿，占比约 0.00016%——不是百分之零点几，是百万分之二不到。也就是说，真实世界里“让 agent 替我下单”这件事，目前几乎不存在。",
+{f:{t:"flow",n:[["资本先行",["两家各融 1500 万美元做基建"]],["真实需求",["3.2 亿单里约 504 单"]],["剪刀差",["钱到了 · 用户还没到"]],["机会位置",["商家侧 plumbing"]]]},cap:"订单数据为 Uber 万圣节当周口径，资本与需求的剪刀差一目了然。"},
+"这个剪刀差说明所处的阶段：agent 购物还在“先把管道铺好”的时期，铺管道的钱先到了，用的用户还没到。这时候去做面向消费者的入口和结账层，是在给不存在的用户做产品；管道层反而确定有人买单——每个想被 agent 找到的商家，都得先把自己的商品变成 agent 读得懂、能下单的格式。"
+],
+why:"别做 agent 购物入口或结账层；商家侧让商品能被 agent 读懂、可下单的 plumbing，才是当下拿钱的方向。"},
+{g:"本期汇编",date:"2026-11",cat:"资本动向",c1:"#2f6690",c2:"#152f47",
+title:"Agent 护栏三家，一日共融约 8200 万美元",
+take:"Lumbra 做审计、Bay 做拦截、WhiteMatter 做治理：让 agent 干活只是一半，证明它干了什么才是另一半。",
+srcShort:"每日情报扫描",
+src:"每日情报扫描 · 资本动向（2026-11）",
+art:[
+"一天之内，三家做 agent 护栏的公司先后公布融资：Lumbra 拿了 2500 万美元，做高风险场景下可审计的 agent；Bay 拿了 3700 万美元，盯住企业里的 agent，在危险动作真正执行之前把它拦下来；WhiteMatter 拿了 2000 万美元，做 agent 治理。三家加起来，约 8200 万美元。",
+"三家做的其实是同一件事的三个面。Lumbra 的关键词是审计：agent 做过的每一步都要留痕，事后能追溯“它为什么这么做、动了什么”。Bay 的关键词是拦截：不等人事后查，在危险动作执行前就停住——这正是课程里检查点和 fail-closed（没人批就不执行）在企业市场里的样子。WhiteMatter 的关键词是治理：在单个动作之上，管权限、管规则、管谁能让 agent 做什么。",
+{f:{t:"hub",c:"Agent 护栏三件",n:[["审计 · Lumbra",["2500 万美元","高风险场景可审计"]],["拦截 · Bay",["3700 万美元","危险动作执行前拦住"]],["治理 · WhiteMatter",["2000 万美元","管权限与规则"]]]},cap:"三家同一天公布融资，合计约 8200 万美元。"},
+"资本为什么往这里跑。企业敢把真实流程交给 agent 之前，先要回答一个问题：它闯了祸，谁能拿出证据说清发生了什么，又能不能在闯祸之前就拦住。做不出审计和拦截，agent 就只能停在演示阶段，进不了有真实数据的生产流程。护栏不是 agent 的配件，而是它进入企业的门票。"
+],
+why:"让 agent 干活只是产品的一半，证明它干了什么才是另一半。碰企业流程的产品，要从一开始就带上审计和回滚的故事——留痕、检查点、回滚路径，是设计阶段就要画进流程图的东西，不是上线后补的日志。"},
+{g:"本期汇编",date:"2026-11",cat:"产品案例",c1:"#7d8c46",c2:"#47511f",
+title:"Postiz 接入 MCP/CLI 后，十个月涨约 25 倍",
+take:"让 agent 能直接调用之后，流失率从 26%–28% 掉到 13.7%；同赛道的 ShipFast 跌了 98%。",
+srcShort:"每日情报扫描",
+src:"每日情报扫描 · 产品案例（2026-11）",
+art:[
+"Postiz 是一个开源的社交媒体排程工具，数据先摆出来：每月经常性收入 35.2 万美元，订阅用户 1 万多个，累计已经赚了 169 万美元。转折点在今年 2 月：它接上了 CLI 和 MCP，让 agent 能直接调用它——用户不用再打开它的界面，让自己的 agent 去排期、去发布就行。",
+"变化最明显的是流失率：接入之前每月流失 26% 到 28%，接入之后掉到 13.7%，差不多腰斩；十个月下来，整体涨了约 25 倍。机制不难理解：当 agent 替用户使用一个产品，这个产品就从“用户想起来才打开”变成了“每天被自动调用”，使用频率和不可替代性一起变了，流失自然往下掉。",
+{f:{t:"cols",c:[{h:"Postiz",l:["接 CLI + MCP 让 agent 调用","流失 26–28% → 13.7%","MRR 35.2 万美元"]},{h:"ShipFast",l:["同样做给开发者","峰值 MRR 14.1 万美元","现在 1,700 美元 · 跌 98%"]}]},cap:"同赛道、两种结局：差别在 agent 能不能直接调用它。"},
+"对照组是 ShipFast，同样是做给开发者的工具，峰值时每月 14.1 万美元，现在只剩 1700 美元，跌了 98%。两个产品摆在一起，差别不在功能列表，而在一个问题：agent 能不能直接调用它。能被 agent 调用的工具，会被 agent 带着进入用户的工作流；不能的，就只能等用户自己想起来。"
+],
+why:"做工具先问一句：agent 能不能直接调用它。给产品加一个 MCP 或 CLI 入口，等于让 agent 替用户用你的产品——这是把产品塞进别人工作流的最短路径。"},
+{g:"本期汇编",date:"2026-11",cat:"岗位动向",c1:"#9c6644",c2:"#5f3a22",
+title:"设计智能体与效果评测，正在被写进 JD",
+take:"腾讯开设计智能体 PM 岗，阿里千问在 JD 里直接点名 Office Agent Harness 与评估标准。",
+srcShort:"腾讯 · 阿里千问 · 字节 JD",
+src:"腾讯、阿里千问、字节公开 JD；Mercor 融资报道；经每日情报扫描汇编",
+art:[
+"先看岗位本身。腾讯新开了一个“设计智能体-Ardot 产品经理”，在深圳，属于腾讯云与智慧产业事业群——注意它的名字，不是“设计工具产品经理”，是“设计智能体”，招的人要对一整个 agent 负责。字节那边，设计加 AI 方向的岗位有 149 个。",
+"阿里千问的 JD 写得最露骨。它一口气刷新了多个 AI 产品经理岗：内容生产、消费决策、深度思考、AI Office 产品专家。JD 里直接点名 Office Agent Harness，还把要管的东西列了出来：任务拆解与规划、上下文与记忆管理、工具/MCP/Skill 策略。这三样，正好是这套课前三个主题在教的东西。",
+{f:{t:"hub",c:"JD 点名的能力",n:[["任务拆解与规划",["harness 的骨架"]],["上下文与记忆管理",["每步给什么 · 存什么"]],["工具 / MCP / Skill",["能力怎么接 · 怎么分工"]],["评估标准",["可用率 · 优质率","任务执行成功率"]]]},cap:"出自阿里千问 AI 产品经理岗 JD 的点名项。"},
+"JD 还往下写了一层：这些岗位要做模型 SFT 和 RL post-training，要定评估标准——可用率、优质率、任务执行成功率。也就是说，企业招的不是“会用 AI 工具的设计师”，而是能给 agent 定标准、判好坏，并把判断喂回训练的人。评测和 post-training，从实验室走到了 JD 上。",
+"资本侧有个对照。Mercor 刚拿了 7.5 亿美元，估值 200 亿美元，26 个月涨了 80 倍。它卖的东西，是组织 500 多万人类专家，给 AI 实验室提供训练数据、评测和 post-training 服务。模型公司自己不缺会训练的人，缺的是能大规模供应“什么是好”的判断——这门生意值 200 亿美元，说明判断本身正在变成一种基础设施。"
+],
+why:"画界面的岗在缩水，搭脚手架、定标准的岗在加人。作品集往 harness 加评测上靠：能展示“我给 agent 定了什么结构、用什么标准判它好坏”，比多放几张界面图更对 JD 的胃口。"},
+{g:"10.26",date:"2026-10-26",cat:"新进展",c1:"#1d7874",c2:"#0b3835",
+title:"阿里 Co-Design Bench：单项 69.9%，整链只剩 26.4%",
+take:"验收标准满足率 69.9%，整条链全过的只有 26.4%——eval 必须按整条链子判。",
+srcShort:"阿里 Co-Design Bench",
+src:"阿里 Co-Design Bench（2026-10-26 发布），经每日情报扫描汇编",
+art:[
+"Co-Design Bench 是阿里在 2026 年 10 月 26 日发布的一个基准，专门测设计类 agent——不是测它会不会聊天，而是把设计任务整条链交给它，从理解需求到产出，看它能不能走完。",
+"它给出两个数字，放在一起看才有意思。第一个是验收标准满足率 69.9%：把验收标准拆成一条一条，七成左右能满足。第二个是整条链全过的比例，只有 26.4%：一个任务里所有环节全部达标，才算过。",
+{f:{t:"flow",n:[["单项验收",["满足率 69.9%"]],["串成整条链",["每一环都不能掉"]],["整链全过",["只剩 26.4%"]],["判卷结论",["按整条链判"]]]},cap:"单项能过和整活全过，是两个完全不同的数字。"},
+"差距来自乘法。假设一条链有五个环节，每个环节单独看都有八九成把握，五环全部命中的概率是连乘出来的，会掉到六成以下；环节越多、每环把握越低，全过率掉得越狠。69.9% 与 26.4% 之间差的四十多个点，就是这么被乘掉的。",
+"所以 eval 不能只报单项满足率。一个设计 agent 每项检查都“差不多能过”，交付时却可能有四分之三的任务整条链走不完。判卷要按整条链判：给完整任务、判最终产物、统计全过率，单项分数只用来定位是哪一环在掉链子。"
+],
+why:"你的设计判断沉淀 skill 自证时，别只报“品牌检查通过率”这类单项数字，要报整条链的全过率：给一个真实需求，从读规范到产出可交付 demo，全程跑通的比例。那才是评审会信的数字。"}
+];
+var feedSeen={};
+var feedCur=-1;
+var FEED_ACC="#57a773",FEED_ACC2="#2c5f3f";
+function feedReadCount(){var n=0;for(var k in feedSeen)if(feedSeen[k])n++;return n}
+function updateFeedHead(){
+var sub=$('feedSub');
+if(sub)sub.textContent='共 '+FEED.length+' 条 · 已读 '+feedReadCount()+' 条，每天持续补充进来';
+if(currentView!=='feed')return;
+$('curNo').textContent=pad(feedReadCount());
+$('totNo').textContent=FEED.length;
+$('progBar').style.width=(FEED.length?(feedReadCount()/FEED.length*100):0)+'%';
+}
+function buildFeed(){
+var zone=$('feedList');if(!zone)return;
+var html='',lastG=null;
+FEED.forEach(function(it,i){
+if(it.g!==lastG){html+='<div class="feed-date-g">'+it.g+'</div>';lastG=it.g}
+html+='<button class="feed-tile'+(feedSeen[i]?' read':'')+'" data-feed="'+i+'" style="--fc:'+it.c1+';--fc2:'+it.c2+'">'
++'<span class="ft-top"><span class="ft-cat">'+it.cat+'</span><span class="ft-date">'+it.date+'</span>'+(it.isNew&&!feedSeen[i]?'<span class="ft-new">NEW</span>':'')+'</span>'
++'<span class="ft-title">'+it.title+'</span>'
++'<span class="ft-take">'+it.take+'</span>'
++'<span class="ft-foot"><span class="ft-src">'+it.srcShort+'</span><span class="ft-go">展开阅读<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span></span>'
++'</button>';
+});
+zone.innerHTML=html;
+Array.prototype.forEach.call(zone.querySelectorAll('[data-feed]'),function(b){
+b.addEventListener('click',function(){openFeedReader(parseInt(b.getAttribute('data-feed'),10))});
+});
+requestAnimationFrame(feedTilt);
+}
+var feedTiltRaf=null;
+function feedTilt(){
+var zone=$('feedZone');if(!zone||currentView!=='feed')return;
+var zr=zone.getBoundingClientRect(),cy=zr.top+zr.height/2;
+Array.prototype.forEach.call(zone.querySelectorAll('.feed-tile'),function(t){
+if(reduced){t.style.transform='none';t.style.opacity='';return}
+var r=t.getBoundingClientRect();
+var off=(r.top+r.height/2-cy)/zr.height;
+var a=Math.max(-1.2,Math.min(1.2,off));
+t.style.transform='perspective(1050px) rotateX('+(-a*40).toFixed(2)+'deg) translateZ('+(-Math.abs(a)*46).toFixed(1)+'px) scale('+(1-Math.abs(a)*0.05).toFixed(3)+')';
+t.style.opacity=(1-Math.abs(a)*0.30).toFixed(3);
+});
+}
+$('feedZone').addEventListener('scroll',function(){
+if(feedTiltRaf)return;
+feedTiltRaf=requestAnimationFrame(function(){feedTiltRaf=null;feedTilt()});
+},{passive:true});
+function openFeedReader(i){
+feedCur=i;var it=FEED[i];feedSeen[i]=true;
+document.documentElement.style.setProperty('--acc',it.c1);
+document.documentElement.style.setProperty('--acc2',it.c2);
+$('feedReaderTerm').textContent=it.cat+' · '+it.date;
+var full=it.take+' '+it.art.filter(function(b){return typeof b==='string'}).join(' ');
+var chipTerms=[];
+GLOSSARY.forEach(function(t){if(full.indexOf(t)>-1&&findCardByConcept(t)>-1&&chipTerms.indexOf(t)<0)chipTerms.push(t)});
+chipTerms=chipTerms.slice(0,5);
+var chips=chipTerms.map(function(t){return '<button class="concept-chip" data-concept="'+t+'">'+t+'</button>'}).join('');
+var body='';
+it.art.forEach(function(b){
+if(typeof b!=='string'){body+=mapBox(figRender(b.f),'图 · 结构',b.cap);return}
+splitParas(b,120).forEach(function(p){body+='<p class="body">'+wrapConcepts(p)+'</p>'});
+});
+$('feedReaderBody').innerHTML=
+'<div class="r-term">DAILY FEED — '+it.cat+' · '+it.date+'</div>'
++'<h3>'+it.title+'</h3>'
++'<p class="lead">'+wrapConcepts(it.take)+'</p>'
++(chips?'<div class="concept-row"><div class="cr-k">CONCEPTS · 点一个概念深入一层，或在文中选中任意文字</div><div class="cr-chips">'+chips+'</div></div>':'')
++body
++'<div class="exbox"><div class="ex-k">对你意味着什么 · SO WHAT</div><p>'+it.why+'</p></div>'
++'<p class="src">来源：'+it.src+'</p>'
++'<div class="r-end">'
++(i<FEED.length-1
+?'<button class="rbtn" id="fBackBtn">Back</button>'
++'<button class="rbtn acc" id="fNextBtn">Next<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button>'
+:'<button class="rbtn acc" id="fBackBtn">Back</button>')
++'</div>';
+Array.prototype.forEach.call($('feedReaderBody').querySelectorAll('[data-concept]'),function(b){
+b.addEventListener('click',function(){openDeepFor(b.getAttribute('data-concept'),mainDeck)});
+});
+$('feedReaderBody').scrollTop=0;
+$('selDive').classList.remove('on');
+$('feedReaderOv').classList.add('on');
+$('feedReaderOv').setAttribute('aria-hidden','false');
+$('fBackBtn').addEventListener('click',closeFeedReader);
+var nb=$('fNextBtn');
+if(nb)nb.addEventListener('click',function(){openFeedReader(feedCur+1)});
+updateFeedHead();
+}
+function closeFeedReader(){
+$('feedReaderOv').classList.remove('on');
+$('feedReaderOv').setAttribute('aria-hidden','true');
+$('selDive').classList.remove('on');
+if(currentView==='feed'){
+document.documentElement.style.setProperty('--acc',FEED_ACC);
+document.documentElement.style.setProperty('--acc2',FEED_ACC2);
+buildFeed();updateFeedHead();
+}
+}
+$('feedReaderBack').addEventListener('click',closeFeedReader);
+
 /* ================= views / nav ================= */
 var currentView='learn';
 function showView(v){
 currentView=v;
+$('viewFeed').classList.toggle('active',v==='feed');
 $('viewLearn').classList.toggle('active',v==='learn');
 $('viewArch').classList.toggle('active',v==='arch');
+$('tabFeed').classList.toggle('active',v==='feed');
 $('tabLearn').classList.toggle('active',v==='learn');
 $('tabArch').classList.toggle('active',v==='arch');
-if(v==='arch')buildProgress();
-if(v==='learn'&&mainDeck)renderDeck(mainDeck,0);
+var hl=document.querySelector('.head-row .deck');
+if(v==='feed'){
+hl.textContent='Flipwise · DAILY FEED';
+document.documentElement.style.setProperty('--acc',FEED_ACC);
+document.documentElement.style.setProperty('--acc2',FEED_ACC2);
+buildFeed();updateFeedHead();
+requestAnimationFrame(feedTilt);
 }
+if(v==='arch'){
+hl.textContent='Flipwise · PROGRESS';
+document.documentElement.style.setProperty('--acc',MODS[curDay].c1);
+document.documentElement.style.setProperty('--acc2',MODS[curDay].c2);
+buildProgress();
+var dn=0;for(var i=0;i<CARDS.length;i++)if(seen[i])dn++;
+$('curNo').textContent=pad(dn);
+$('totNo').textContent=CARDS.length;
+$('progBar').style.width=(dn/CARDS.length*100)+'%';
+}
+if(v==='learn'){hl.textContent='Flipwise · CARD DECK';if(mainDeck)renderDeck(mainDeck,0)}
+}
+$('tabFeed').addEventListener('click',function(){showView('feed')});
 $('tabLearn').addEventListener('click',function(){showView('learn')});
 $('tabArch').addEventListener('click',function(){showView('arch')});
 
@@ -1304,6 +1603,7 @@ var activeDeck=mainDeck;
 $('prevBtn').addEventListener('click',function(){goDeck(mainDeck,-1)});
 $('nextBtn').addEventListener('click',function(){goDeck(mainDeck,1)});
 document.addEventListener('keydown',function(e){
+if($('feedReaderOv').classList.contains('on')){if(e.key==='Escape')closeFeedReader();return}
 if($('readerOv').classList.contains('on')){if(e.key==='Escape')closeReader();return}
 if(currentView==='learn'){if(e.key==='ArrowRight')goDeck(mainDeck,1);if(e.key==='ArrowLeft')goDeck(mainDeck,-1)}
 });
@@ -1317,6 +1617,7 @@ clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('on
 }
 
 buildProgress();
+buildFeed();
 renderDeck(mainDeck,0);
 
 </script>
